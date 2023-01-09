@@ -11,6 +11,9 @@
         "workerman/workerman": "^3.5"
     },
     "autoload": {
+        "psr-4": {
+            "wuwueo\\adapter\\workerman\\": "src"
+        },
         "classmap": [
             "src/Http.php"
         ]
