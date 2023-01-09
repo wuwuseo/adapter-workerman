@@ -71,7 +71,7 @@ trait ParseUploadFiles
                                     'tmp_name' => $tmp_file,
                                     'size'     => $size,
                                     'error'    => $error,
-                                    'type'     => \trim($header_value)
+                                    'type'     => ''
                                 );
                             } else {
                                 $_FILES[$fileFormName] += array(
@@ -80,7 +80,7 @@ trait ParseUploadFiles
                                     'tmp_name' => $tmp_file,
                                     'size'     => $size,
                                     'error'    => $error,
-                                    'type'     => \trim($header_value)
+                                    'type'     => ''
                                 );
                             }
 
