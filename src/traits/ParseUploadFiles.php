@@ -50,7 +50,7 @@ trait ParseUploadFiles
                             $error = 0;
                             $tmp_file = '';
                             $size = \strlen($boundary_value);
-                            $tmp_upload_dir = HTTP::uploadTmpDir();
+                            $tmp_upload_dir = self::uploadTmpDir();
                             if (!$tmp_upload_dir) {
                                 $error = UPLOAD_ERR_NO_TMP_DIR;
                             } else {
