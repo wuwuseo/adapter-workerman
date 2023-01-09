@@ -14,7 +14,7 @@ namespace Workerman\Protocols;
 
 use Workerman\Connection\TcpConnection;
 use Workerman\Worker;
-use wuwueo\adapter\workerman\traits\ParseUploadFiles;
+use wuwuseo\adapter\workerman\traits\ParseUploadFiles;
 
 /**
  * http protocol

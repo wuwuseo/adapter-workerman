@@ -1,6 +1,6 @@
 <?php
 
-namespace wuwueo\adapter\workerman\traits;
+namespace wuwuseo\adapter\workerman\traits;
 
 trait ParseUploadFiles
 {

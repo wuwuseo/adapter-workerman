@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "wuwueo\\adapter\\workerman\\": "src"
+            "wuwuseo\\adapter\\workerman\\": "src"
         },
         "classmap": [
             "src/Http.php"
