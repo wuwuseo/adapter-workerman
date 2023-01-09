@@ -28,19 +28,20 @@ trait ParseUploadFiles
             foreach (\explode("\r\n", $boundary_header_buffer) as $item) {
                 list($header_key, $header_value) = \explode(": ", $item);
                 $header_key = \strtolower($header_key);
-                if(preg_match('/name="(.*?)"; filename="(.*?)"$/', $header_value, $match)){// Is file data.
-                    if (strpos($match[1],'[]')) {
-                        $isFiles = true;
-                    }else{
-                        $isFiles = false;
-                    }
-                    $fileFormName = str_replace('[]','',$match[1]);
-                    $isPostField = false;
-                } else { // Is post field.
-                    $isPostField = true;
-                }
+                \var_dump($header_key.'--'.$header_value);
                 switch ($header_key) {
                     case "content-disposition":
+                        if(preg_match('/name="(.*?)"; filename="(.*?)"$/', $header_value, $match)){// Is file data.
+                            if (strpos($match[1],'[]')) {
+                                $isFiles = true;
+                            }else{
+                                $isFiles = false;
+                            }
+                            $fileFormName = str_replace('[]','',$match[1]);
+                            $isPostField = false;
+                        } else { // Is post field.
+                            $isPostField = true;
+                        }
                         if ($isPostField) {
                             // Parse $_POST.
                             if (\preg_match('/name="(.*?)"$/', $header_value, $match)) {
@@ -50,7 +51,7 @@ trait ParseUploadFiles
                             $error = 0;
                             $tmp_file = '';
                             $size = \strlen($boundary_value);
-                            $tmp_upload_dir = HTTP::uploadTmpDir();
+                            $tmp_upload_dir = self::uploadTmpDir();
                             if (!$tmp_upload_dir) {
                                 $error = UPLOAD_ERR_NO_TMP_DIR;
                             } else {
@@ -86,14 +87,13 @@ trait ParseUploadFiles
                         }
                         break;
                     case "content-type":
-                        // add file_type
-
-                        if($isFiles){
-                            $_FILES[$match[1]][$key]['type'] = \trim($header_value);
-                        } else {
-                            $_FILES[$match[1]]['type'] = \trim($header_value);
+                        if(isset($fileFormName)){
+                            if($isFiles){
+                                $_FILES[$fileFormName][$key]['type'] = \trim($header_value);
+                            } else {
+                                $_FILES[$fileFormName]['type'] = \trim($header_value);
+                            }
                         }
-
                         break;
                 }
             }
